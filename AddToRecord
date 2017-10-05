@@ -1,0 +1,50 @@
+function AddToRecord() 
+{
+  //THINGS TO CUSTOMIZE
+  //SET NAMED RANGES, ActionOwner,ContactName,ActivityNotes
+  
+  var workBook = SpreadsheetApp.getActive();
+  var logSheet = workBook.getActiveSheet();
+  var logStartRow = 18;
+  var logStartColumn = 2;
+  
+  if (logSheet.getActiveCell().getA1Notation() == "B14")
+  {
+    var newLog = logSheet.getRange(logStartRow,logStartColumn,logSheet.getMaxRows()-logStartRow,4);
+    var thisLogEntry = logSheet.getRange(logStartRow,logStartColumn,1,4);
+    var oldLog = newLog.offset(1,0,logSheet.getMaxRows()-logStartRow,4);
+  
+    oldLog.setValues(newLog.getValues());
+  
+    //Logs Date
+    var date = new Date();
+    date = Utilities.formatDate(date, "EST","M/dd, yyyy, h:mm a");
+    var newLogName = date;
+    var newLogNameCell = logSheet.getRange("B18"); //SET THIS TO WHERE THE LOG SHOULD GO
+    newLogNameCell.setValue(newLogName);
+    
+    var newLogName = logSheet.getRange("C7").getValue(); // Gets the value of the entry in the action owner cell
+    var newLogNameCell = logSheet.getRange("C18"); //SET THIS TO WHERE THE LOG SHOULD GO
+    newLogNameCell.setValue(newLogName);
+    
+    var newLogName = logSheet.getRange("E7").getValue(); // Gets the value of the entry in the action owner cell
+    var newLogNameCell = logSheet.getRange("D18"); //SET THIS TO WHERE THE LOG SHOULD GO
+    newLogNameCell.setValue(newLogName);
+    
+    var newLogName = workBook.getRangeByName("B10").getValue(); // Gets the value of the entry in the action owner cell
+    var newLogNameCell = logSheet.getRange("E18"); //SET THIS TO WHERE THE LOG SHOULD GO
+    newLogNameCell.setValue(newLogName);
+    
+    //Clears Inputs
+  
+    logSheet.getRange("C7").clearContent();
+    logSheet.getRange("E7").clearContent();
+    logSheet.getRange("B10").clearContent();
+  }
+}
+
+
+
+
+
+
